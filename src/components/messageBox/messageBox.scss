@@ -1,0 +1,38 @@
+@mixin alert ($color, $bcolor) {
+    width: 500px;
+    color: $color;
+    background-color: $bcolor;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    transition: 0.5s ease-in-out;
+
+    border: 1px solid transparent {
+        radius: 8px;
+    }
+}
+
+.alert {
+    margin-top: 20px;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+
+    &-info {
+        @include alert(#2020a0, #e0e0ff);
+    }
+
+    &-danger {
+        @include alert(#a02020, #ffd9d9);
+    }
+
+    &-success {
+        @include alert(#20a020, #eeffe0);
+    }
+}
+
+.close {
+    font-size: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+}

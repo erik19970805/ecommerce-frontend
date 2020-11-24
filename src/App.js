@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ScreenHeader from "./screens/header/ScreenHeader";
+import "./App.scss";
+import ScreenProducts from "./screens/products/ScreenProducts";
+import ScreenProductDetails from "./screens/productDetails/ScreenProductDetails";
+import ScreenSignin from "./screens/users/ScreenSignin";
+import ScreenSignup from "./screens/users/ScreenSignup";
+import ScreenCart from "./screens/cart/ScreenCart";
+import NotFound from "./components/NotFound";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <div className="App">
+                <ScreenHeader />
+                <Switch>
+                    <Route path="/" exact component={ScreenProducts} />
+                    <Route
+                        path="/detail/:id"
+                        exact
+                        component={ScreenProductDetails}
+                    />
+                    <Route path="/signin" exact component={ScreenSignin} />
+                    <Route path="/signup" exact component={ScreenSignup} />
+                    <Route path="/cart" exact component={ScreenCart} />
+                    <Route path="*" exact component={NotFound} />
+                </Switch>
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;

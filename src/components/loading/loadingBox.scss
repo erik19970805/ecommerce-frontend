@@ -1,0 +1,35 @@
+.load-page {
+    background: #fff;
+    display: flex;
+    justify-content: center;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+
+    & div {
+        width: 11rem;
+        height: 11rem;
+
+        border: 2px solid #fff {
+            top: 2px solid crimson;
+            radius: 50%;
+        }
+
+        animation: rotate 7s linear infinite alternate-reverse;
+    }
+}
+
+@keyframes rotate {
+    50% {
+        transform: rotate(80deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

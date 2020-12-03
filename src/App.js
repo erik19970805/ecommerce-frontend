@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { signout } from "./redux/actions/authActions";
 import ScreenHeader from "./screens/header/ScreenHeader";
 import ScreenProducts from "./screens/products/ScreenProducts";
 import ScreenProductDetails from "./screens/productDetails/ScreenProductDetails";
@@ -10,11 +11,11 @@ import ScreenCart from "./screens/cart/ScreenCart";
 import NotFound from "./components/NotFound";
 import MessageBox from "./components/messageBox/MessageBox";
 import ScreenHistory from "./screens/history/ScreenHistory";
-import ScreenHistoryDetails from "./screens/HistoryDetails/ScreenHistoryDetails";
+import ScreenHistoryDetails from "./screens/historyDetails/ScreenHistoryDetails";
 import ScreenCategories from "./screens/categories/ScreenCategories";
+import ScreenCreateProduct from "./screens/createProduct/ScreenCreateProduct";
 
 import "./App.scss";
-import { signout } from "./redux/actions/authActions";
 
 function App() {
     const dispatch = useDispatch();
@@ -66,6 +67,13 @@ function App() {
                         exact
                         component={isAdmin ? ScreenCategories : NotFound}
                     />
+
+                    <Route
+                        path="/create_product"
+                        exact
+                        component={isAdmin ? ScreenCreateProduct : NotFound}
+                    />
+
                     <Route
                         path="/history"
                         exact

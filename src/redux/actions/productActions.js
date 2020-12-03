@@ -15,7 +15,10 @@ export const listProducts = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: ERROR,
-            payload: error.response.data.error,
+            payload:
+                error.response && error.response.data.error
+                    ? error.response.data.error
+                    : error.message,
         });
     }
 };
@@ -28,7 +31,69 @@ export const detailsProduct = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: ERROR,
-            payload: error.response.data.error,
+            payload:
+                error.response && error.response.data.error
+                    ? error.response.data.error
+                    : error.message,
+        });
+    }
+};
+
+export const createProduct = (product) => async (dispatch, getState) => {
+    try {
+        const { token } = getState();
+        const { data } = await apiCall("POST", "/products", product, {
+            Authorization: `Bearer ${token}`,
+        });
+        dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data.message });
+    } catch (error) {
+        dispatch({
+            type: ERROR,
+            payload:
+                error.response && error.response.data.error
+                    ? error.response.data.error
+                    : error.message,
+        });
+    }
+};
+
+export const updateProduct = (product) => async (dispatch, getState) => {
+    try {
+        const { token } = getState();
+        const { data } = await apiCall(
+            "PUT",
+            `/products/${product.id}`,
+            product,
+            {
+                Authorization: `Bearer ${token}`,
+            }
+        );
+        dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data.message });
+    } catch (error) {
+        dispatch({
+            type: ERROR,
+            payload:
+                error.response && error.response.data.error
+                    ? error.response.data.error
+                    : error.message,
+        });
+    }
+};
+
+export const deleteProduct = (id) => async (dispatch, getState) => {
+    try {
+        const { token } = getState();
+        const { data } = await apiCall("DELETE", `/products/${id}`, null, {
+            Authorization: `Bearer ${token}`,
+        });
+        dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data.message });
+    } catch (error) {
+        dispatch({
+            type: ERROR,
+            payload:
+                error.response && error.response.data.error
+                    ? error.response.data.error
+                    : error.message,
         });
     }
 };

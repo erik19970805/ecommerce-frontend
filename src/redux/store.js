@@ -5,17 +5,18 @@ import {
     productDetailsReducer,
 } from "./reducers/productReducers";
 import { messagesReducer, errorsReducer } from "./reducers/messageReducers";
-import { cartReducer } from "./reducers/cartReducers";
 import {
     isAdminReducer,
     isLoggedReducer,
     tokenReducer,
 } from "./reducers/authReducers";
-import { historiesReducer, historyReducer } from "./reducers/historyReducers";
 import {
     categoriesReducer,
     categoryReducer,
 } from "./reducers/categoryReducers";
+import { cartReducer } from "./reducers/cartReducers";
+import { historiesReducer, historyReducer } from "./reducers/historyReducers";
+import { uploadReducer } from "./reducers/uploadReducers";
 
 const auth = localStorage.getItem("auth")
     ? JSON.parse(localStorage.getItem("auth"))
@@ -43,6 +44,7 @@ const reducer = combineReducers({
     history: historyReducer,
     category: categoryReducer,
     categories: categoriesReducer,
+    images: uploadReducer,
     error: errorsReducer,
     message: messagesReducer,
 });

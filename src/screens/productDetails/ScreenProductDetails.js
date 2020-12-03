@@ -1,46 +1,51 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
+import ProductItem from "../../components/productItem/ProductItem";
 import {
     detailsProduct,
     listProducts,
 } from "../../redux/actions/productActions";
+import LoadingBox from "../../components/loading/LoadingBox";
+import { addCart } from "../../redux/actions/cartActions";
 import "./productDetails.scss";
 
-const ScreenProductDetails = ({ match }) => {
+const ScreenProductDetails = ({ match, history }) => {
     const dispatch = useDispatch();
     const productId = match.params.id;
-    const { products } = useSelector((state) => state.productList);
-    const { productDetails } = useSelector((state) => state.productDetails);
+    const { products } = useSelector((state) => state.products);
+    const { product } = useSelector((state) => state.product);
+
+    const handleAddCart = () => {
+        dispatch(addCart(product));
+        history.push(history.location.pathname);
+    };
 
     useEffect(() => {
+        dispatch(detailsProduct(productId));
         dispatch(listProducts());
-        dispatch(detailsProduct({ productId }));
     }, [dispatch, productId]);
-    if (!products || !productDetails) return <Loading />;
-
+    if (!product || !products) return <LoadingBox />;
     return (
         <>
             <div className="detail">
-                <img
-                    src={productDetails.images.url}
-                    alt={productDetails.name}
-                />
+                <img src={product.images.url} alt={product.name} />
                 <div className="box-detail">
                     <div className="row">
-                        <h2>{productDetails.name}</h2>
-                        <h6>#: {productDetails._id}</h6>
+                        <h2>{product.name}</h2>
+                        <h6>#: {product._id}</h6>
                     </div>
-                    <span>$ {productDetails.price}</span>
-                    <p>{productDetails.description}</p>
-                    <Link to="/cart" className="cart">
+                    <span>$ {product.price}</span>
+                    <p>{product.description}</p>
+                    <p>Sold: {product.sold}</p>
+                    <button className="cart" onClick={handleAddCart}>
                         Buy now
-                    </Link>
+                    </button>
                 </div>
             </div>
 
             <div>
-                <h2 className="related">Related products</h2>
+                <h2>Related products</h2>
                 <div className="products">
                     {products.map((product) => {
                         return (
@@ -53,4 +58,4 @@ const ScreenProductDetails = ({ match }) => {
     );
 };
 
-export default ScreenProductDetails;
+export default withRouter(ScreenProductDetails);

@@ -7,7 +7,8 @@ import LoggedRouter from "../../components/LoggedRouter";
 import "./header.scss";
 
 const ScreenHeader = () => {
-    const { userInfo } = useSelector((state) => state.userSignin);
+    const { isAdmin } = useSelector((state) => state);
+    const { cart } = useSelector((state) => state);
     return (
         <header>
             <div className="menu">
@@ -15,27 +16,24 @@ const ScreenHeader = () => {
             </div>
             <div className="logo">
                 <h1>
-                    <Link to="/">
-                        {userInfo && userInfo.isAdmin ? "Admin" : "Mi Shop"}
-                    </Link>
+                    <Link to="/">{isAdmin ? "Admin" : "Mi Shop"}</Link>
                 </h1>
             </div>
-
             <ul>
                 <li>
-                    <Link to="/">Products</Link>
+                    <Link to="/">{isAdmin ? "Products" : "Shop"}</Link>
                 </li>
-                {userInfo && userInfo.isAdmin && <AdminRouter />}
+                {isAdmin && <AdminRouter />}
 
-                <LoggedRouter userInfo={userInfo} />
+                <LoggedRouter />
                 <li>
                     <FaTimes className="menu" />
                 </li>
             </ul>
-            {userInfo && !userInfo.isAdmin && (
+            {isAdmin ? null : (
                 <div className="cart">
-                    <span>0</span>
                     <Link to="/cart">
+                        <span>{cart.length}</span>
                         <FaShoppingCart className="cart-icon" />
                     </Link>
                 </div>

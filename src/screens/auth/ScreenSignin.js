@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { signin } from "../../redux/actions/userActions";
-import MessageBox from "../../components/messageBox/MessageBox";
+import { signin } from "../../redux/actions/authActions";
 
-import "./users.scss";
+import "./auth.scss";
 
 const ScreenSignin = ({ history }) => {
     const [user, setUser] = useState({
@@ -13,7 +12,7 @@ const ScreenSignin = ({ history }) => {
     });
 
     const dispatch = useDispatch();
-    const { userInfo, error } = useSelector((state) => state.userSignin);
+    const { token } = useSelector((state) => state);
 
     const onChangeInput = (e) => {
         const { name, value } = e.target;
@@ -26,18 +25,11 @@ const ScreenSignin = ({ history }) => {
     };
 
     useEffect(() => {
-        userInfo && userInfo.token && history.push("/");
-    }, [history, userInfo]);
+        token && history.push("/");
+    }, [history, token]);
 
     return (
         <>
-            {error && (
-                <MessageBox
-                    variant="danger"
-                    message={error}
-                    type={"USER_SIGNIN_FAIL"}
-                />
-            )}
             <div className="auth-page">
                 <form onSubmit={submitHandler}>
                     <h2>Sign In</h2>

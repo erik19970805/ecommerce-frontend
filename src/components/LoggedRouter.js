@@ -1,29 +1,28 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { signout } from "../redux/actions/userActions";
+import { signout } from "../redux/actions/authActions";
 
-const LoggedRouter = ({ userInfo }) => {
+const LoggedRouter = () => {
     const dispatch = useDispatch();
+    const { isLogged } = useSelector((state) => state);
     const signoutHandler = () => {
         dispatch(signout());
     };
 
     return (
         <>
-            {userInfo ? (
-                userInfo.isLogged && (
-                    <>
-                        <li>
-                            <Link to="/history">History</Link>
-                        </li>
-                        <li>
-                            <Link to="/" onClick={signoutHandler}>
-                                Sign Out
-                            </Link>
-                        </li>
-                    </>
-                )
+            {isLogged ? (
+                <>
+                    <li>
+                        <Link to="/history">History</Link>
+                    </li>
+                    <li>
+                        <Link to="/" onClick={signoutHandler}>
+                            Sign Out
+                        </Link>
+                    </li>
+                </>
             ) : (
                 <>
                     <li>

@@ -1,4 +1,4 @@
-export const closeError = (type) => (dispatch) => {
+export const closeMessage = (type) => (dispatch) => {
     dispatch({
         type,
         payload: null,

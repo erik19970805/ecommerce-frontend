@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { closeError } from "../../redux/actions/closeErrorActions";
+import { closeMessage } from "../../redux/actions/closeMessageActions";
+
 import "./messageBox.scss";
 
 const MessageBox = ({ variant, message, type }) => {
     const dispatch = useDispatch();
     const onClickClose = () => {
-        dispatch(closeError(type));
+        dispatch(closeMessage(type));
     };
+
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch(closeMessage(type));
+        }, 5000);
+    }, [dispatch, type]);
 
     return (
         <div className="alert">

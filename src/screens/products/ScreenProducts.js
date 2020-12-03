@@ -8,8 +8,7 @@ import "./products.scss";
 
 const ScreenProducts = () => {
     const dispatch = useDispatch();
-    const { loading, products } = useSelector((state) => state.productList);
-    const { userInfo } = useSelector((state) => state.userSignin);
+    const { loading, products } = useSelector((state) => state.products);
 
     useEffect(() => {
         dispatch(listProducts());
@@ -23,11 +22,7 @@ const ScreenProducts = () => {
                 products && (
                     <div className="products">
                         {products.map((product) => (
-                            <ProductItem
-                                key={product._id}
-                                product={product}
-                                isAdmin={userInfo ? userInfo.isAdmin : null}
-                            />
+                            <ProductItem key={product._id} product={product} />
                         ))}
                     </div>
                 )

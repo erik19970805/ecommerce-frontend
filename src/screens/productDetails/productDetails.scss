@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    pad: 50px;
+    padding: 50px;
     font-size: 150%;
 
     & img {
@@ -49,8 +49,4 @@
         text-transform: uppercase;
         letter-spacing: 2px;
     }
-}
-
-.related {
-    margin-top: 25px;
 }

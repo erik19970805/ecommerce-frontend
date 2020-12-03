@@ -4,26 +4,47 @@ import {
     productListReducer,
     productDetailsReducer,
 } from "./reducers/productReducers";
-import { userSigninReducer, userSignupReducer } from "./reducers/userReducers";
+import { messagesReducer, errorsReducer } from "./reducers/messageReducers";
+import { cartReducer } from "./reducers/cartReducers";
+import {
+    isAdminReducer,
+    isLoggedReducer,
+    tokenReducer,
+} from "./reducers/authReducers";
+import { historiesReducer, historyReducer } from "./reducers/historyReducers";
+import {
+    categoriesReducer,
+    categoryReducer,
+} from "./reducers/categoryReducers";
+
+const auth = localStorage.getItem("auth")
+    ? JSON.parse(localStorage.getItem("auth"))
+    : null;
+
+const cart = localStorage.getItem("cart")
+    ? JSON.parse(localStorage.getItem("cart"))
+    : [];
 
 const initialState = {
-    userSignin: {
-        userInfo: localStorage.getItem("userInfo")
-            ? JSON.parse(localStorage.getItem("userInfo"))
-            : null,
-    },
-    //     cart: {
-    //         cartItems: localStorage.getItem("cartItems")
-    //             ? JSON.parse(localStorage.getItem("cartItems"))
-    //             : [],
-    //     },
+    token: auth ? auth.token : null,
+    isLogged: auth ? auth.isLogged : false,
+    isAdmin: auth ? auth.isAdmin : false,
+    cart,
 };
 
 const reducer = combineReducers({
-    productList: productListReducer,
-    productDetails: productDetailsReducer,
-    userSignin: userSigninReducer,
-    userSignup: userSignupReducer,
+    products: productListReducer,
+    product: productDetailsReducer,
+    token: tokenReducer,
+    isLogged: isLoggedReducer,
+    isAdmin: isAdminReducer,
+    cart: cartReducer,
+    histories: historiesReducer,
+    history: historyReducer,
+    category: categoryReducer,
+    categories: categoriesReducer,
+    error: errorsReducer,
+    message: messagesReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -1,39 +1,39 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import { addCart } from "../../redux/actions/cartActions";
 
 const BtnRender = ({ product, history }) => {
-    const { userInfo } = useSelector((state) => state.userSignin);
+    const dispatch = useDispatch();
+    const { isAdmin } = useSelector((state) => state);
 
-    const handleProductId = (path) => history.push(`/${path}/${product._id}`);
-    const handleAddCart = () => <h1>nuevo</h1>;
+    const handleProductId = () => {
+        const path = isAdmin ? "edit" : "detail";
+        history.push(`/products/${path}/${product._id}`);
+    };
+    const handleAddCart = () => {
+        dispatch(addCart(product));
+        history.push(history.location.pathname);
+    };
 
     return (
         <div className="row_btn">
-            {userInfo ? (
-                userInfo.isAdmin && (
-                    <>
-                        <Link to="/cart" id="btn_buy">
-                            Delete
-                        </Link>
-                        <button
-                            id="btn_view"
-                            onClick={() => handleProductId("edit_product")}
-                        >
-                            Edit
-                        </button>
-                    </>
-                )
+            {isAdmin ? (
+                <>
+                    <Link to="/cart" id="btn_buy">
+                        Delete
+                    </Link>
+                    <button id="btn_view" onClick={handleProductId}>
+                        Edit
+                    </button>
+                </>
             ) : (
                 <>
-                    <Link to="/cart" id="btn_buy" onClick={handleAddCart}>
+                    <button id="btn_buy" onClick={handleAddCart}>
                         Buy
-                    </Link>
-                    <button
-                        id="btn_view"
-                        onClick={() => handleProductId("detail")}
-                    >
+                    </button>
+                    <button id="btn_view" onClick={handleProductId}>
                         View
                     </button>
                 </>

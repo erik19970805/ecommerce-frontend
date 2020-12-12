@@ -8,7 +8,8 @@ import {
   PRODUCT_UPDATE_SUCCESS,
 } from "../constants/productConstants";
 import { apiCall } from "../api";
-import { ERROR, MESSAGE } from "../constants/messageContants";
+import { MESSAGE } from "../constants/messageContants";
+import { closeExpireToken } from "./closeMessageActions";
 
 export const listProducts = (filters) => async (dispatch, getState) => {
   dispatch({ type: PRODUCT_LIST_REQUEST });
@@ -22,13 +23,7 @@ export const listProducts = (filters) => async (dispatch, getState) => {
     );
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data.products });
   } catch (error) {
-    dispatch({
-      type: ERROR,
-      payload:
-        error.response && error.response.data.error
-          ? error.response.data.error
-          : error.message,
-    });
+    dispatch(closeExpireToken(error));
   }
 };
 
@@ -38,13 +33,7 @@ export const detailsProduct = (id) => async (dispatch) => {
     const { data } = await apiCall("GET", `/products/${id}`, null, null);
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data.product });
   } catch (error) {
-    dispatch({
-      type: ERROR,
-      payload:
-        error.response && error.response.data.error
-          ? error.response.data.error
-          : error.message,
-    });
+    dispatch(closeExpireToken(error));
   }
 };
 
@@ -57,13 +46,7 @@ export const createProduct = (product) => async (dispatch, getState) => {
     dispatch({ type: MESSAGE, payload: data.message });
     dispatch({ type: PRODUCT_CREATE_SUCCESS });
   } catch (error) {
-    dispatch({
-      type: ERROR,
-      payload:
-        error.response && error.response.data.error
-          ? error.response.data.error
-          : error.message,
-    });
+    dispatch(closeExpireToken(error));
   }
 };
 
@@ -79,13 +62,7 @@ export const updateProduct = (product, productId) => async (
     dispatch({ type: MESSAGE, payload: data.message });
     dispatch({ type: PRODUCT_UPDATE_SUCCESS });
   } catch (error) {
-    dispatch({
-      type: ERROR,
-      payload:
-        error.response && error.response.data.error
-          ? error.response.data.error
-          : error.message,
-    });
+    dispatch(closeExpireToken(error));
   }
 };
 
@@ -97,13 +74,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     });
     dispatch({ type: MESSAGE, payload: data.message });
   } catch (error) {
-    dispatch({
-      type: ERROR,
-      payload:
-        error.response && error.response.data.error
-          ? error.response.data.error
-          : error.message,
-    });
+    dispatch(closeExpireToken(error));
   }
 };
 

@@ -17,7 +17,6 @@ import "./App.scss";
 
 function App() {
   const { error, message, isLogged, isAdmin } = useSelector((state) => state);
-
   return (
     <BrowserRouter>
       <div className="App">

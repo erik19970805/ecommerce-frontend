@@ -11,8 +11,6 @@ const ScreenHeader = () => {
   const { isAdmin } = useSelector((state) => state);
   const { cart } = useSelector((state) => state);
 
-  const toggleMenu = () => setMenu(!menu);
-
   const styleMenu = {
     left: menu ? 0 : "-100%",
   };

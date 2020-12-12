@@ -21,6 +21,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <ScreenHeader />
+
         {error && <MessageBox message={error} variant="danger" type="ERROR" />}
         {message && (
           <MessageBox message={message} variant="info" type="MESSAGE" />

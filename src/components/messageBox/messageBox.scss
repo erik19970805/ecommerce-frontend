@@ -1,38 +1,65 @@
-@mixin alert ($color, $bcolor) {
-    width: 500px;
-    color: $color;
-    background-color: $bcolor;
-    padding: 8px;
-    display: flex;
-    justify-content: space-between;
-    transition: 0.5s ease-in-out;
-
-    border: 1px solid transparent {
-        radius: 8px;
-    }
+@mixin alert($color, $bcolor) {
+  width: 350px;
+  color: $color;
+  background-color: $bcolor;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.5s ease-in-out;
+  position: fixed;
+  z-index: 100;
+  margin-top: 10px;
+  top: 2%;
+  border: 1px solid transparent {
+    radius: 8px;
+  }
+  & h6 {
+    font-size: 20px;
+  }
 }
 
 .alert {
-    margin-top: 20px;
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-end;
 
-    &-info {
-        @include alert(#2020a0, #e0e0ff);
-    }
+  &-info {
+    @include alert(#2020a0, #e0e0ff);
+  }
 
-    &-danger {
-        @include alert(#a02020, #ffd9d9);
-    }
+  &-danger {
+    @include alert(#a02020, #ffd9d9);
+  }
 
-    &-success {
-        @include alert(#20a020, #eeffe0);
-    }
+  &-success {
+    @include alert(#20a020, #eeffe0);
+  }
 }
 
 .close {
-    font-size: 20px;
-    margin-left: 20px;
-    cursor: pointer;
+  font-size: 170%;
+  cursor: pointer;
+}
+
+@media (max-width: 500px) {
+  $width: 70%;
+  .alert {
+    &-info {
+      width: $width;
+    }
+
+    &-danger {
+      width: $width;
+    }
+
+    &-success {
+      width: $width;
+    }
+  }
+  .close {
+    width: 30%;
+    height: 30%;
+    display: flex;
+  }
 }

@@ -51,6 +51,5 @@ export const signout = () => async (dispatch) => {
   dispatch({ type: AUTH_ISLOGGED, payload: false });
   dispatch({ type: AUTH_ISADMIN, payload: false });
   dispatch({ type: AUTH_CART, payload: [] });
-  dispatch({ type: MESSAGE, payload: "Se ha cerrado la sesion" });
   localStorage.clear();
 };

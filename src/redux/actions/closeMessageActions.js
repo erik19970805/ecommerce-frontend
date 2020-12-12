@@ -9,14 +9,22 @@ export const closeMessage = (type) => (dispatch) => {
 };
 
 export const closeExpireToken = (error) => (dispatch) => {
-  if (!error.response.data.isLogged) {
+  if (error.response.data.isLogged === false) {
     dispatch(signout());
+    dispatch({
+      type: ERROR,
+      payload:
+        error.response && error.response.data.error
+          ? error.response.data.error
+          : error.message,
+    });
+  } else {
+    dispatch({
+      type: ERROR,
+      payload:
+        error.response && error.response.data.error
+          ? error.response.data.error
+          : error.message,
+    });
   }
-  dispatch({
-    type: ERROR,
-    payload:
-      error.response && error.response.data.error
-        ? error.response.data.error
-        : error.message,
-  });
 };
